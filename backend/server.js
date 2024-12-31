@@ -11,7 +11,3 @@ dbConnect()
 app.listen(port, () => {
     console.log("App is running on PORT: ", port)
 })
-
-app.get("/" , (req, res) => {
-    res.send("Hello World")
-})
