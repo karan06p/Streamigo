@@ -1,4 +1,4 @@
-
+import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
@@ -9,9 +9,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-black">
       <Navbar />
-      <main>
+      <main className="flex w-full">
+        <Sidebar />
         {children}
       </main>
       </body>
