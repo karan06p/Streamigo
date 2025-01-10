@@ -1,6 +1,13 @@
-import Sidebar from "@/components/Sidebar";
+import { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+
+export const metadata: Metadata = {
+  title: "Streamigo",
+  description: "A video streaming platform for seamless streaming.",
+  icons: {
+    icon: "/favicon.svg"
+  }
+}
 
 export default function RootLayout({
   children,
@@ -9,10 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-black">
-      <Navbar />
-      <main className="flex w-full">
-        <Sidebar />
+      <body>
+      <main>
         {children}
       </main>
       </body>

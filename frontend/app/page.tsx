@@ -1,4 +1,6 @@
 "use client";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import VideoBox from "@/components/VideoBox";
 
 export default function Home() {
@@ -96,7 +98,11 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-wrap bg-black">
+    <div>
+      <Navbar />
+      <div className="flex">
+        <Sidebar />
+        <div className="flex flex-wrap bg-black">
       {videos.map((video, index) => (
         <VideoBox
           key={index}
@@ -107,5 +113,9 @@ export default function Home() {
         />
       ))}
     </div>
+      </div>
+      
+    </div>
+    
   );
 }
