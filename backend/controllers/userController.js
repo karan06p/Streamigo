@@ -7,7 +7,7 @@ async function checkIfUsernameExists(username){
     return exists !== null ;
 }
 
-async function registerUser(req, res) {
+async function signUp(req, res) {
     const { username, email, password } = req.body;
     try {
         if (!username || !email || !password) {
@@ -31,4 +31,16 @@ async function registerUser(req, res) {
     }
 }
 
-module.exports = { registerUser };
+async function signIn(req, res){
+    const { email, password } = req.body()
+    const user = await UserModel.findOne(email);
+    if(!emailExists){
+        return ApiResponse(res, 404, "Email do not exists please signup")
+    };
+    if(user.password !== password){
+        return ApiResponse(res, 400, "Password is not correct")
+    }
+    // Complete
+}
+
+module.exports = { signUp };

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -37,11 +36,23 @@ export function SignUpForm() {
         }
     })
 
-    function onSubmit(values: z.infer<typeof SignUpFormSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
-    };
+    const onSubmit = async (data: z.infer<typeof SignUpFormSchema>) => {
+      const response = await fetch("http://localhost:4000/api/users/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const responseData = await response.json();
+      if(response.ok){
+        console.log(responseData.message)
+      }else {
+        console.log("Signup failed")
+      }
+
+    }
 
     return (
         <div className="w-full h-full flex flex-col items-center gap-y-10">
@@ -110,11 +121,23 @@ export function SignInForm(){
         }
     })
 
-    function onSubmit(values: z.infer<typeof SignInFormSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
-    };
+    const onSubmit = async (data: z.infer<typeof SignInFormSchema>) => {
+      const response = await fetch("http://localhost:4000/api/users/signIn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const responseData = await response.json();
+      if(response.ok){
+        console.log(responseData.message)
+      }else {
+        console.log("Signin failed")
+      }
+
+    }
 
     return (
         <div className="w-full h-full flex flex-col items-center gap-y-8">
