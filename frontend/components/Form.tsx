@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 const SignUpFormSchema = z.object({
@@ -113,6 +114,7 @@ export function SignUpForm() {
 }
 
 export function SignInForm(){
+    const router = useRouter()
     const form = useForm<z.infer<typeof SignInFormSchema>>({
         resolver: zodResolver(SignInFormSchema),
         defaultValues: {
@@ -132,6 +134,7 @@ export function SignInForm(){
 
       const responseData = await response.json();
       if(response.ok){
+        router.replace("/")
         console.log(responseData.message)
       }else {
         console.log("Signin failed")

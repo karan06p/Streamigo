@@ -6,14 +6,13 @@ async function hashPassword(password){
 };
 
 async function comparePassword(password, hashedPassword){
-    await bcrypt.compare(password, hashedPassword, (err, result) => {
-        try {
-            return result
-        } catch (error) {
-            console.log("Error occured while comparing passwords", error)
-            return err
-        }
-    })
+    try {
+        const result = await bcrypt.compare(password, hashedPassword)
+        return result;
+    } catch (error) {
+        console.log("Error occured while comparing password");
+        throw error;
+    }
 };
 
 module.exports = { hashPassword, comparePassword }

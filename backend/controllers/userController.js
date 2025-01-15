@@ -1,7 +1,8 @@
 const UserModel = require("../models/User.schema");
 const { hashPassword } = require("../utils/PasswordEditing");
 const ApiResponse = require("../utils/ApiResponse");
-
+const { comparePassword } = require("../utils/PasswordEditing")
+ 
 async function checkIfUsernameExists(username){
     const exists = await UserModel.findOne({username})
     return exists !== null ;
@@ -32,15 +33,25 @@ async function signUp(req, res) {
 }
 
 async function signIn(req, res){
-    const { email, password } = req.body()
-    const user = await UserModel.findOne(email);
-    if(!emailExists){
-        return ApiResponse(res, 404, "Email do not exists please signup")
-    };
-    if(user.password !== password){
-        return ApiResponse(res, 400, "Password is not correct")
+    const { email, password } = req.body
+    try {
+        const user = await UserModel.findOne({email});
+        if(user ===  null){
+            console.log("User doesn't exist")
+            return ApiResponse(res, 404, "Email do not exists please signup")
+        };
+        const checkedPassword = await comparePassword(password, user.password)
+        if(!checkedPassword){
+            console.log("Password is Incorrect");
+            return ApiResponse(res, 400, "Password is Incorrect")
+        }
+        console.log("user signed in")
+        return ApiResponse(res,200,"User signed in successfully")
+    } catch (error) {
+        console.error("Error occurred while trying to sign in user");
+        return ApiResponse(res,500, "Internal Server Error")
     }
-    // Complete
+
 }
 
-module.exports = { signUp };
+module.exports = { signUp, signIn };
