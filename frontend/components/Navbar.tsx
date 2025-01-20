@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className="h-16 px-8 bg-black text-white flex justify-between items-center w-full">
       <div className="flex justify-start gap-8 items-center w-1/5">
-        <Menu/> <Image src={logo} alt="logo" width={115} height={115} /> 
+        <Menu className="hover:bg-gray-200/60"/> <Image src={logo} alt="logo" width={115} height={115} /> 
       </div>
       <div className=" flex justify-center items-center w-3/5">
         <div className="w-2/4 flex items-center justify-center">

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Streamigo",
@@ -17,10 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
-      <main>
+      <body className="bg-black">
+        <Navbar />        
+      <main className="flex">
+      <Sidebar />
+        <div className="w-full h-screen overflow-y-auto">        
         {children}
+        </div>
       </main>
       </body>
     </html>
