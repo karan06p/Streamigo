@@ -99,7 +99,6 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar />
       <div className="flex">
         <Sidebar />
         <div className="flex flex-wrap bg-black">

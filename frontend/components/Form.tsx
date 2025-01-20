@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 const SignUpFormSchema = z.object({
@@ -106,6 +107,7 @@ export function SignUpForm() {
             </FormItem>
           )}
         />
+        <p className="flex justify-center items-center">Not Registered? <Link href={"/auth/sign-in"} className="text-blue-500">Sign In</Link></p>
         <Button type="submit">Submit</Button>
       </form>
     </Form>
@@ -143,11 +145,11 @@ export function SignInForm(){
     }
 
     return (
-        <div className="w-full h-full flex flex-col items-center gap-y-8">
+        <div className="w-full h-full flex flex-col items-center gap-y-6">
         <Form {...form}>
             <div className="flex flex-col items-center gap-2">
                 
-                <h2 className="text-xl">Sign Up</h2>
+                <h2 className="text-xl">Sign In</h2>
                 <p className="flex text-sm text-gray-800/80">Register to Streamigo to enjoy video streaming seamlessly!</p>
                 <Image src={logo} alt="logo" width={100} height={50} />
             </div>
@@ -178,6 +180,7 @@ export function SignInForm(){
             </FormItem>
           )}
         />
+        <p className="flex justify-center items-center">Not Registered? <Link href={"/auth/sign-up"} className="text-blue-500">Sign Up</Link></p>
         <Button type="submit">Submit</Button>
       </form>
     </Form>

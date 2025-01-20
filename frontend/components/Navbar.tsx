@@ -3,6 +3,7 @@ import { Bell, Menu, Mic, Plus, Search } from "lucide-react";
 import logo from "@/public/logo.svg";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Link from "next/link";
 
 // TODOS:-
 // 1. Add functionality of toggling sidebar by clicking menu icon
@@ -28,16 +29,17 @@ const Navbar = () => {
         <Mic className="bg-gray-100 mx-4 text-black h-12 w-auto text-sm p-3 rounded-full border" />
       </div>
       <div className="w-1/5 flex justify-center gap-8 items-center">
-        <div className="bg-gray-100/50 w-1/4 rounded-3xl flex justify-center items-center p-2">
+        <div className="bg-gray-100/50 rounded-3xl flex justify-center items-center p-2">
           <Plus />  
           Create 
         </div>
         
         <Bell />
-        <Avatar>
+        {/* <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+          <AvatarFallback>Sign In</AvatarFallback>
+        </Avatar> */}
+        <Link href={"/auth/sign-in"} className="outline text-white p-2 rounded-3xl">Sign In</Link>
       </div>
     </nav>
   );
