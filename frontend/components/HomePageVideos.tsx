@@ -97,7 +97,7 @@ const HomePageVideos = () => {
         },
       ];
     return ( 
-        <div className="w-full flex flex-wrap bg-black" onClick={() => router.push("10")}>
+        <div className="w-full flex flex-wrap bg-black" onClick={() => router.push("/video/22")}>
       {videos.map((video, index) => (
         <VideoBox
           key={index}

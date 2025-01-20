@@ -3,7 +3,7 @@ import HomePageVideos from "@/components/HomePageVideos"
 export default async function VideoPage({
     params,
   }: {
-    params: Promise<{ videoId: number }>
+    params: Promise<{ id: number }>
   }) {
     return (
         <div className="w-full h-screen text-white flex">

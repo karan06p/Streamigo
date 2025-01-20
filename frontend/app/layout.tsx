@@ -22,7 +22,7 @@ export default function RootLayout({
         <Navbar />        
       <main className="flex">
       <Sidebar />
-        <div className="w-full h-screen overflow-y-auto">        
+        <div className="w-full h-screen overflow-y-auto text-white">        
         {children}
         </div>
       </main>
