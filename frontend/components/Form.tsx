@@ -16,7 +16,10 @@ import { Input } from "@/components/ui/input"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { useState } from "react";
+import { TailSpin } from "react-loader-spinner"
+import { toast, useToast } from "@/hooks/use-toast";
+ 
 
 const SignUpFormSchema = z.object({
   username: z.string().min(2, {message: "Must be minimum 2 characters"}).max(16, {message: "Must be maximum 16 characters"}),
@@ -29,6 +32,8 @@ const SignInFormSchema = z.object({
 })
 
 export function SignUpForm() {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { toast } = useToast()
     const form = useForm<z.infer<typeof SignUpFormSchema>>({
         resolver: zodResolver(SignUpFormSchema),
         defaultValues: {
@@ -39,24 +44,47 @@ export function SignUpForm() {
     })
 
     const onSubmit = async (data: z.infer<typeof SignUpFormSchema>) => {
-      const response = await fetch("http://localhost:4000/api/users/signUp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-
-      const responseData = await response.json();
-      if(response.ok){
-        console.log(responseData.message)
-      }else {
-        console.log("Signup failed")
+      setIsLoading(true)
+      try {
+        const response = await fetch("http://localhost:4000/api/users/signUp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+  
+        const responseData = await response.json();
+        if(!response.ok){
+          setIsLoading(false)
+          console.log("Signup failed")
+        }else {
+          setIsLoading(false)
+          console.log(responseData.message)
+        }
+      } catch (error) {
+        toast({
+          title: "Failed to Sign Up",
+          variant: "destructive"
+        })
+        console.error(error)
+      } finally{
+        setIsLoading(false);
       }
 
     }
 
     return (
+      <>
+      { isLoading && <div className="h-screen w-full flex justify-center items-center bg-transparent fixed top-0 left-0 z-50">
+        <TailSpin 
+          color="#007DFC"
+          width={80}
+          height={60}
+        />
+      </div>
+      }
+      
         <div className="w-full h-full flex flex-col items-center gap-y-10">
         <Form {...form}>
             <div className="flex flex-col items-center gap-2">
@@ -99,7 +127,10 @@ export function SignUpForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <div className="flex justify-between items-center">
+                <FormLabel>Password</FormLabel>
+                <span className="text-sm text-blue-500" onClick={() => console.log("Someone forgot password.")}>Forgot Password?</span>
+              </div>
               <FormControl>
                 <Input placeholder="password" {...field} />
               </FormControl>
@@ -112,11 +143,13 @@ export function SignUpForm() {
       </form>
     </Form>
     </div>
+    </>
     )
 }
 
 export function SignInForm(){
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const form = useForm<z.infer<typeof SignInFormSchema>>({
         resolver: zodResolver(SignInFormSchema),
         defaultValues: {
@@ -126,25 +159,45 @@ export function SignInForm(){
     })
 
     const onSubmit = async (data: z.infer<typeof SignInFormSchema>) => {
-      const response = await fetch("http://localhost:4000/api/users/signIn", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-
-      const responseData = await response.json();
-      if(response.ok){
-        router.replace("/")
-        console.log(responseData.message)
-      }else {
-        console.log("Signin failed")
+      setIsLoading(true)
+      try {
+        const response = await fetch("http://localhost:4000/api/users/signIn", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+  
+        const responseData = await response.json();
+        if(response.ok){
+          router.replace("/")
+          console.log(responseData.message)
+        }else {
+          console.log("Signin failed")
+        }
+      } catch (error) {
+        console.error(error)
+        toast({
+          title: "Failed to Sign In",
+          variant: "destructive"
+        })
+      } finally {
+        setIsLoading(false);
       }
 
     }
 
     return (
+      <>
+       { isLoading && <div className="h-screen w-full flex justify-center items-center bg-transparent fixed top-0 left-0 z-50">
+        <TailSpin 
+          color="#007DFC"
+          width={80}
+          height={60}
+        />
+      </div>
+      }
         <div className="w-full h-full flex flex-col items-center gap-y-6">
         <Form {...form}>
             <div className="flex flex-col items-center gap-2">
@@ -172,7 +225,10 @@ export function SignInForm(){
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <div className="flex justify-between items-center">
+                <FormLabel>Password</FormLabel>
+                <span className="text-sm text-blue-500" onClick={() => console.log("Someone forgot password.")}>Forgot Password?</span>
+              </div>
               <FormControl>
                 <Input placeholder="password" {...field} />
               </FormControl>
@@ -185,5 +241,6 @@ export function SignInForm(){
       </form>
     </Form>
     </div>
+    </>
     )
 }

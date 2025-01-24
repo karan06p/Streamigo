@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Streamigo",
@@ -22,6 +21,7 @@ export default function RootLayout({
       <main>
         {children}
       </main>
+      <Toaster />
       </body>
     </html>
   );

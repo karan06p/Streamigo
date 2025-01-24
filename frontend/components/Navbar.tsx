@@ -14,7 +14,7 @@ const Navbar = () => {
   const router = useRouter()
   const [isCreateClicked, setIsCreateClicked] = useState<boolean>(false)
   return (
-    <nav className="h-16 px-8 bg-black text-white flex justify-between items-center w-full">
+    <nav className="h-16 pt-4 px-8 bg-black text-white flex justify-between items-center w-full">
       <div className="flex justify-start gap-8 items-center w-1/5">
         <Menu className="hover:bg-gray-200/60 cursor-pointer"/> <Link href={"/"}><Image src={logo} alt="logo" width={115} height={115} /></Link>
       </div>
