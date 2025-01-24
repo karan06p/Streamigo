@@ -19,12 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-black">
-        <Navbar />        
-      <main className="flex">
-      <Sidebar />
-        <div className="w-full h-screen overflow-y-auto text-white">        
+      <main>
         {children}
-        </div>
       </main>
       </body>
     </html>

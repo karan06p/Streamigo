@@ -40,7 +40,7 @@ const Navbar = () => {
           <Plus /> Create
         </div>
         {isCreateClicked && (
-          <div className="absolute top-12 left-0 bg-gray-200 text-black rounded-md shadow-lg p-2">
+          <div className="absolute top-12 z-10 left-0 bg-gray-200 text-black rounded-md shadow-lg p-2">
             <div className="flex flex-col gap-2">
               <Link href={"/upload"} className="cursor-pointer hover:bg-gray-200 p-2 rounded-md">Upload Video</Link>
               <Link href={"/go-live"} className="cursor-pointer hover:bg-gray-200 p-2 rounded-md">Go Live</Link>
